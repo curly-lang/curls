@@ -9,7 +9,7 @@ fn from(location: &files::Location) -> Position {
     Position::new(u64::try_from(location.line_number - 1).expect("cannot convert usize to 64"), u64::try_from(location.column_number - 1).expect("cannot convert usize to u64"))
 }
 
-pub fn label_range(label: &Label<usize>, files: &SimpleFiles<&String, String>) -> Option<Range> {
+fn label_range(label: &Label<usize>, files: &SimpleFiles<&String, String>) -> Option<Range> {
     if let Ok(start) = files.location(label.file_id, label.range.start) {
         if let Ok(end) = files.location(label.file_id, label.range.end) {
             return Some(Range::new(from(&start), from(&end)))
@@ -19,12 +19,24 @@ pub fn label_range(label: &Label<usize>, files: &SimpleFiles<&String, String>) -
     None
 }
 
+fn use_label_message(label: &Label<usize>) -> bool {
+    if label.message == "Curried function found here" {
+        return false
+    }
+
+    true
+}
+
 pub fn convert_diagnostics(raw_diagnostics: &Vec<diagnostic::Diagnostic<usize>>, files: &SimpleFiles<&String, String>, diagnostics: &mut Vec<Diagnostic>) {
     for raw_diagnostic in raw_diagnostics {
         if let Some(label) = raw_diagnostic.labels.iter().find(|label| label.style == LabelStyle::Primary) {
             if let Some(range) = label_range(label, files) {
                 diagnostics.push(Diagnostic {
-                    message: label.message.clone(),
+                    message: if use_label_message(label) {
+                        label.message.clone()
+                    } else {
+                        raw_diagnostic.message.clone()
+                    },
                     code: match &raw_diagnostic.code {
                         Some(code) => Some(NumberOrString::String(code.clone())),
                         None => None
