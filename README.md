@@ -5,6 +5,23 @@ Curls is an implementation of the [Language Server Protocol](https://microsoft.g
 
 Curls is still under active development.
 
+## Installation
+### Vim
+Install [coc.nvim](https://github.com/neoclide/coc.nvim), do `:CocConfig`, and add the following to your config:
+```json
+{
+    "languageserver": {
+        "curly" : {
+            "command": "~/curls/target/debug/curls",
+            "filetypes": ["curly"]
+        }
+    }
+}
+```
+
+### VSCode
+Install the [Curly extension for VSCode](https://github.com/curly-lang/curly-vscode)
+
 ## Goals
 - [ ] Semantic token highlighting
 - [ ] Autocomplete
