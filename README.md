@@ -6,13 +6,18 @@ Curls is an implementation of the [Language Server Protocol](https://microsoft.g
 Curls is still under active development.
 
 ## Installation
+Run the following:
+```bash
+git clone https://github.com/curly-lang/curls; cd curls; cargo install --path .
+```
+
 ### Vim
 Install [coc.nvim](https://github.com/neoclide/coc.nvim), do `:CocConfig`, and add the following to your config:
 ```json
 {
     "languageserver": {
         "curly" : {
-            "command": "~/curls/target/debug/curls",
+            "command": "curls",
             "filetypes": ["curly"]
         }
     }
