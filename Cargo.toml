@@ -9,3 +9,5 @@ edition = "2018"
 [dependencies]
 curlyc = { git = "https://github.com/curly-lang/curly-lang", branch = "main" }
 tower-lsp = "0.13.3"
+tokio = { version = "0.2", features = ["full"] }
+codespan-reporting = "0.9"
