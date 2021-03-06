@@ -8,7 +8,7 @@ Curls is still under active development.
 ## Goals
 - [ ] Semantic token highlighting
 - [ ] Autocomplete
-- [ ] Diagnostics
+- [x] Diagnostics
 - [ ] Go to definition/usages
 - [ ] Code folding
 - [ ] Hover and type information
