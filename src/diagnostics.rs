@@ -20,7 +20,7 @@ fn label_range(label: &Label<usize>, files: &SimpleFiles<&String, String>) -> Op
 }
 
 fn use_label_message(label: &Label<usize>) -> bool {
-    if label.message == "Curried function found here" {
+    if label.message == "Curried function found here" || label.message.is_empty() {
         return false
     }
 
